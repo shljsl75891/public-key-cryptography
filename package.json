@@ -1,0 +1,28 @@
+{
+  "name": "public-key-cryptography",
+  "version": "1.0.0",
+  "exports": "./dist/index.js",
+  "prettier": {
+    "arrowParens": "avoid",
+    "singleQuote": true,
+    "bracketSpacing": false
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "prestart": "npm run build",
+    "start": "node ./dist/index.js",
+    "dev": "concurrently \"npm run build:watch\" \"nodemon ./dist/index.js\""
+  },
+  "keywords": [],
+  "author": "sahil-jassal",
+  "license": "ISC",
+  "description": "Encryption and Signature Verification using Public and Private Keys",
+  "devDependencies": {
+    "@types/node": "^22.7.7",
+    "concurrently": "^9.0.1",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.6.3"
+  }
+}
