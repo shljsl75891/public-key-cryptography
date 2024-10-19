@@ -1,11 +1,16 @@
-import {writeFileSync} from 'node:fs';
-import {join} from 'node:path';
+import {MESSAGE} from './config.js';
 import {AsymmetricCryptography} from './utils/asymmetric-cryptography.util.js';
 
-const asymmetricCryptography = new AsymmetricCryptography();
+const asymmetricCryptography = AsymmetricCryptography.getInstance();
+asymmetricCryptography.generateKeyPair();
 
-const keysPath = join(import.meta.dirname, '../src/keys');
-const {publicKey, privateKey} = asymmetricCryptography.generateKeyPair();
+const encryptedBuffer = asymmetricCryptography.encryptWithPublicKey(MESSAGE);
 
-writeFileSync(keysPath + '/public_key.pem', publicKey);
-writeFileSync(keysPath + '/private_key.pem', privateKey);
+if (encryptedBuffer) {
+  const decryptedMsg =
+    asymmetricCryptography.decryptWithPrivateKey(encryptedBuffer);
+
+  if (decryptedMsg) {
+    console.log('Decrypted Message: ', decryptedMsg);
+  }
+}
